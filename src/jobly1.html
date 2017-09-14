@@ -1,0 +1,150 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+		<style type="text/css">
+			body{
+				height: 1170px;
+			}
+			#jobbtns{
+				background-color: yellow;
+			}
+			#addNewDiv{
+				float: left;
+			}
+			#cleanTable{
+				float: right;
+			}
+			#copyright{
+				position: absolute;
+				top: 1160px;
+				left: 40%;
+			}
+		</style>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script>
+			$(document).ready(function(){
+				$("#addNewBtn").on("click",function(){
+					
+					$('#appltable tbody').append('<tr><td><input type=text id=cnametxt required></td><td><input type=text id=cpostxt required></td><td><input type=text id=proftxt required></td><td><input type=text id=stattxt required></td></tr>');
+				
+				});
+
+				$('.input').keypress(function(e){
+					if(e.which == 13){
+						$(this).blur();
+						$('#newapplbtn').focus().click();
+						return false;
+					}
+				});
+				
+				$("form").submit(function(){
+
+					var compvar = $('#cnametxt').val();
+					var posvar = $('#cpostxt').val();
+					var profvar = $('#proftxt').val();
+					var statvar = $('#stattxt').val();
+					$('#appltable tr:last').remove();
+					$('#appltable tbody').append('<tr><td class="compName">'+compvar+'</td><td class="posName">'+posvar+'</td><td class="profNames">'+profvar+'</td><td class="statUpdates">'+statvar+'</td></tr>');
+					return false;
+
+				});
+
+				$("#removeRejectedBtn").on('click', function(){
+					
+					var cnames =[];
+					var posnames = [];
+					var profiles= [];
+					var status = [];
+
+					$('#appltable tbody tr').each(function(i, row){
+						cnames.push($(this).find(".compName").html());
+						posnames.push($(this).find(".posName").html());
+						profiles.push($(this).find(".profNames").html());
+						status.push($(this).find(".statUpdates").html())
+					});
+
+					var newcnames = [];
+					var newposnames = [];
+					var newprofiles = [];
+					var newstatus = [];
+
+					$.each(status, function(index,value){
+						if(status[index] != "rejected"){
+							newcnames.push(cnames[index]);
+							newposnames.push(posnames[index]);
+							newprofiles.push(profiles[index]);
+							newstatus.push(status[index]);
+						}
+					});
+
+					//populate the new table here
+					$('#appltable tr').remove();
+					$.each(newcnames, function(index, value){
+						if(index == 0){
+							$('#appltable tbody').append('<tr><th class="compName">'+newcnames[index]+'</th><th class="posName">'+newposnames[index]+'</th><th class="profNames">'+newprofiles[index]+'</th><th class="statUpdates">'+newstatus[index]+'</th></tr>');
+						}
+						else{
+							$('#appltable tbody').append('<tr><td class="compName">'+newcnames[index]+'</td><td class="posName">'+newposnames[index]+'</td><td class="profNames">'+newprofiles[index]+'</td><td class="statUpdates">'+newstatus[index]+'</td></tr>');
+						}
+						
+					});
+				});
+			});
+			
+		</script>
+	</head>
+	<body>
+		<div id="jobwindow">
+			<form action="" method="POST">
+			<div id="jobtable">
+			<!--bootstrap table-->
+				<table class="table" id="appltable">
+						<tr>
+							<th class="compName">Company</th>
+							<th class="posName">Position</th>
+							<th class="profNames">Profile</th>
+							<th class="statUpdates">Status</th>
+						</tr>
+						<tr>
+							<td class="compName">Twitter</td>
+							<td class="posName">Software Engineer I</td>
+							<td class="profNames">C,C++,JSON, PHP</td>
+							<td class="statUpdates">In review</td>
+						</tr>
+						<tr>
+							<td class="compName">Facebook</td>
+							<td class="posName">Product Engineer</td>
+							<td class="profNames">C/C++, Linux expertise</td>
+							<td class="statUpdates">Application received</td>
+						</tr>
+						<tr>
+							<td class="compName">NVIDIA</td>
+							<td class="posName">Software Engineer- Machine Learning</td>
+							<td class="profNames">Basic Understanding of ML concepts</td>
+							<td class="statUpdates">rejected</td>
+						</tr>
+						<tr>
+							<td class="compName">SalesForce</td>
+							<td class="posName">Software Engineer II</td>
+							<td class="profNames"> 5 yrs experience in ML concepts</td>
+							<td class="statUpdates">In review</td>
+						</tr>
+				</table>
+				<input type="submit" id="newapplbtn" style="display: none;">
+			</div>
+			</form>
+			<div id="jobbtns">
+				<div id="addNewDiv">
+					<button type="button" class="btn btn-primary" id="addNewBtn">Add new application</button>
+				</div>
+				<div id="cleanTable">
+					<button type="button" class="btn btn-danger" id="removeRejectedBtn">Remove all rejected applications</button>
+				</div>
+			</div>
+			
+		</div>
+		<div id="copyright">
+			<p> &copy; This application is developed and maintained by Anne Sravani.</p>
+		</div>
+	</body>	
+</html>

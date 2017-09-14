@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="bootstrap.css">
+		<style type="text/css">
+			body{
+				height: 1170px;
+			}
+			#searchBoxDiv{
+				width: 100%;
+				height: 5%;
+				background-color: green;
+			}
+			.navbar{
+				border-radius: 0;
+			}
+			#titlePara{
+				float: left;
+				margin-top: 1%;
+				margin-bottom: 0;
+				font-size: 1.5em;
+				margin-left: -5%;
+				color: #3b5998;
+			}
+			#input-group1{
+				margin-left: 23%;
+			}
+			.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus{
+				color: white;
+				background-color: #3b5998;
+			}
+			#resultsarea{
+				width: 100%;
+				height: 100%;
+				background-color: green;
+			}
+		</style>
+		<script type="text/javascript">
+			function changeactive(lisent){
+				
+				var list=document.getElementById("navlist");
+				var i=0;
+				
+				while(i<list.children.length){
+					if (list.children[i].id == lisent.parentElement.id) {
+						list.children[i].className = "active";
+					}
+					else{
+						list.children[i].className = "inactive";
+					}
+					i++;
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="searchBoxDiv">
+			<nav class="navbar navbar-default">
+				<div class="container" id="searchBox">
+					<p id="titlePara">FB Search</p>
+					<form class="navbar-form" role="search">
+						<div class="input-group" id="input-group1" style="width: 50%">
+							<input type="text" class="form-control" placeholder="usc" name="queryIn" style="border-radius: 0;">
+						
+							<div class="input-group-btn">
+								<button class="btn btn-default" type ="submit" style="border-radius:0;width: 100%; background-color: #3b5998;border: 1px solid #3b5998;">
+									<i class="glyphicon glyphicon-search" style="color: white;"></i>
+								</button>
+							</div>
+						</div>
+						<button class="btn btn-default" type="reset" style="border-radius: 0; color: #3b5998; border: 1px solid #3b5998;">Clear</button>
+					</form>
+				</div>
+			</nav>
+		</div>
+		<nav class="navbar navbar-default" style="position: relative; top: -0.6%;background-color: white;border-bottom: 2px solid #3b5998;">
+			<div class="container" id="searchType" style="width: 100%;padding-left: 0;padding-right: 0;">
+				<ul class="nav navbar-nav" style="width: 100%;" id="navlist">
+					<li class="active" style="width: 16.5%;text-align: center;" id="li1">
+						<a href="#" onclick="changeactive(this)">Users</a>
+					</li>
+					<li class="inactive" style="width: 16.5%;text-align: center;" id="li2">
+						<a href="#" onclick="changeactive(this)">Pages</a>
+					</li>
+					<li class="inactive" style="width: 16.5%;text-align: center;" id="li3">
+						<a href="#" onclick="changeactive(this)">Events</a>
+					</li>
+					<li class="inactive" style="width: 16.5%;text-align: center;" id="li4">
+						<a href="#" onclick="changeactive(this)">Places</a>
+					</li>
+					<li class="inactive" style="width: 16.5%;text-align: center;" id="li5">
+						<a href="#" onclick="changeactive(this)">Groups</a>
+					</li>
+					<li class="inactive" style="width: 17.5%;text-align: center;" id="li6">
+						<a href="#" onclick="changeactive(this)">Favorites</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<div id="resultsarea">
+		<!--load the results using AJAX call-->
+		<!--<i class="glyphicon glyphicon-chevron-right"></i>-->
+			
+		</div>
+	</body>
+</html>

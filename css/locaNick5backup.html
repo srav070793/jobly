@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="bootstrap.css">
+		<style type="text/css">
+			body{
+				height: 1170px;
+				background-color: #F4F4F4;
+
+			}
+			#top_contain{
+				background-color: #D77B02;
+				border:#D77B02;
+				border-radius: 0;
+			}
+			#form-top{
+				background-color: #F4F4F4;
+				width: 50%;
+				height: 50%;
+				margin-left: 25%;
+			}
+			#heading1{
+				font-family: sans-serif;
+				font-size:35px;
+			}
+			#msg-to-guide{
+				color: #D77B02;
+				font-size: 24px;
+			}
+			.spotsboxclass{
+				font-family: sans-serif;
+				width: 100%;
+				height: 6%;
+				border-bottom: 2px solid #4FB4AB;
+				border-top: 0;
+				border-left: 0;
+				border-right: 0;
+				background-color: #F4F4F4;
+			}
+			 .addressboxclass{
+			 	font-family: sans-serif;
+				width: 100%;
+				height: 6%;
+				border-bottom: 2px solid #4FB4AB;
+				border-top: 0;
+				border-left: 0;
+				border-right: 0;
+				background-color: #F4F4F4;
+			 }
+			 .nickbtns{
+			 	color: white;
+			 	background: #D77B02;
+			 	border:none;
+			 	border-radius: 2px;
+			 	width: 12%;
+			 	height: 8%;
+			 	font-weight: lighter;
+			 }
+			 .spotslabel{
+			 	font-size: 12px;
+			 	font-weight: lighter;
+			 	color: #909090;
+			 }
+			 .addresslabel{
+			 	font-size: 12px;
+			 	font-weight: lighter;
+			 	color: #909090;
+			 }
+			 #imagelogo{
+			 	display: block;
+			 	margin: auto;
+			 }
+			 #plusbtn{
+			 	border: none;
+			 	background-color: #F4F4F4;
+			 }
+			 input:focus{
+			 	outline: none;
+			 }
+			 ::-webkit-input-placeholder{
+			 	color: black;
+			 	font-weight: lighter;
+			 };
+		</style>
+		<script type="text/javascript">
+			function changeappear(textboxsent){
+				textboxsent.previousSibling.previousSibling.previousSibling.innerHTML=textboxsent.placeholder;
+				
+				textboxsent.placeholder="";
+
+			}
+			function reappear(textboxsent){
+				if (textboxsent.name=="spotsbox" || textboxsent.name=="addressbox") {
+					textboxsent.placeholder=textboxsent.previousSibling.previousSibling.previousSibling.innerHTML;
+				}
+				if (textboxsent.value =="") {
+					textboxsent.previousSibling.previousSibling.previousSibling.innerHTML="";
+				}
+			}
+			function updatecount(addrbox){
+				var divcnt=addrbox.nextSibling;
+				
+				curcnt=addrbox.value.length;
+				
+				divcnt.innerHTML=curcnt+"/50";
+				if (divcnt.innerHTML == "0/50") {
+					divcnt.style["visibility"] = "hidden";
+				}
+				else{
+					divcnt.style["visibility"] = "visible";
+				}
+
+			}
+			function addNewDestination(){
+				
+				//number of destination next to be inserted
+			var noofDivs = document.getElementById("destinationsform").getElementsByTagName("div");
+				console.log(noofDivs);
+				var nextNum = Math.floor((noofDivs.length/2))+1;
+			
+
+				//adjusting the controlsdiv top position
+				var controlsDiv = document.getElementById("buttonsDiv");
+				var controlsDivTop = controlsDiv.style["top"];
+				var controlsPosition = controlsDivTop.substr(0,controlsDivTop.length-2);
+				controlsPosition = Number(controlsPosition)+130;
+				console.log(controlsPosition);
+				controlsDiv.style["top"] = controlsPosition+"px";
+				console.log(controlsDiv.style["top"]);
+
+				//adding the additional div
+				var myform = document.getElementById("destinationsform");
+				myform.innerHTML+="<div id="+ nextNum +"style=\"position:absolute;top:3%\">";
+				myform.innerHTML+="<label id=spotsboxlabel"+nextNum +" class=spotslabel></label><br>";
+				myform.innerHTML+="<input type=text name=spotsbox placeholder=\"Spot #"+nextNum+"\" id=spotsboxid"+nextNum+" class=spotsboxclass onfocus=changeappear(this) onblur=reappear(this)><br>";
+			
+				myform.innerHTML+="<label id=addressboxlabel"+nextNum+" style=\"margin-top:3%;\"class=addresslabel></label><br>";
+				myform.innerHTML+="<input type=text name=addressbox placeholder=Address id=addressboxid"+nextNum+" class=addressboxclass onfocus=changeappear(this) onblur=reappear(this) onkeyup=updatecount(this)><div id=cnt"+nextNum+" style=\"visibility: hidden; float: right; color: #B8B8B8;\">0/50</div><br><br></div>";
+			}
+		</script>
+	</head>
+	<body>
+		
+		<nav class="navbar navbar-inverse" id="top_contain">
+		<img src="tln_logo2.png" alt="logo" height="50px" width="50px" id="imagelogo">
+		</nav>
+		
+		<div id="form-top">
+			<p id="heading1" style="font-weight: lighter;">Spot Addresses</p>
+			<p id="msg-to-guide">Lets give people an idea of what you will be <br> doing on your adventure. Add the destinations<br> you will be taking travelers</p>
+			<form name="tourdestinations" id="destinationsform" style="height: 100%;">
+				<div id="1">
+				<label id="spotsboxlabel1" class="spotslabel"></label><br>
+				<input type="text" name="spotsbox" placeholder="Spot #1" id="spotsboxid1" class="spotsboxclass"  onfocus="changeappear(this)" onblur="reappear(this)"><br>
+			
+				<label id="addressboxlabel1" style="margin-top:3%;" class="addresslabel"></label><br>
+				<input type="text" name="addressbox" placeholder="Address" id="addressboxid1" class="addressboxclass" onfocus="changeappear(this)" onblur="reappear(this)" onkeyup="updatecount(this)"><div id="cnt1" style="visibility: hidden; float: right; color: #B8B8B8;">0/50</div><br><br>
+				</div>
+
+				<div id="2">
+				<label id="spotsboxlabel2" class="spotslabel"></label><br>
+				<input type="text" name="spotsbox" placeholder="Spot #2" id="spotsboxid2" class="spotsboxclass" onfocus="changeappear(this)" onblur="reappear(this)"><br>
+			
+				<label id="addressboxlabel2" style="margin-top:3%;" class="addresslabel"></label><br>
+				<input type="text" name="addressbox" placeholder="Address" id="addressboxid2" class="addressboxclass" onfocus="changeappear(this)" onblur="reappear(this)" onkeyup="updatecount(this)"><div id="cnt2" style="visibility: hidden; float: right; color: #B8B8B8;">0/50</div><br><br>
+				</div>
+
+				<div id="buttonsDiv" style="position: absolute;top: 470px;height: 100%;width: 100%;">
+					<button name="adddestination" id="plusbtn" onclick="addNewDestination();return false" style="height: 25px;padding: 0;width: 25px;"><img src="addnew.png" height="25px" width="25px" style="margin-left: -10px;"></button><br><br>
+					<input type="submit" name="saveexit" id="saveandexitbtn" class="nickbtns" value="SAVE & EXIT" style="padding-left: 0;width: 10%;padding-right: 0;">
+					<input type="submit" name="next" id="nextbtn" class="nickbtns" value="NEXT" style="margin-left:30%; padding-right: 0;width: 10%;padding-left: 0;">
+				</div>
+			</form>
+		</div>
+	</body>
+</html>
